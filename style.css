@@ -1,0 +1,25 @@
+* {
+    box-sizing: border-box;
+
+  }
+  
+
+body{
+    display: flex;
+    justify-content: center;
+    overflow-x: hidden;
+    
+    
+}
+.wrapper{
+    width: min(761px, 100%)
+}
+.nav-bar{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.toggle-array{
+    display: flex;
+
+}
