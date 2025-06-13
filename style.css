@@ -1,5 +1,7 @@
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding:0;
 
   }
   
@@ -8,18 +10,63 @@ body{
     display: flex;
     justify-content: center;
     overflow-x: hidden;
+    height: 100vh;
+    width: 100vw;
     
     
 }
 .wrapper{
     width: min(761px, 100%)
 }
+
 .nav-bar{
     width: 100%;
     display: flex;
     justify-content: space-between;
+    height: 15vh;
+    align-items: center;
+    
 }
 .toggle-array{
     display: flex;
+    width: 25%;
+    justify-content: space-evenly;
+    align-items: center;
 
+}
+.switcher{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 40%;
+    gap:5px
+    
+
+}
+
+#font-selected{
+    padding: 5%;
+    font-size: 18px;
+}
+.divider{
+    width: 1px;
+    height: 30px;
+    background-color: rgb(224, 236, 247);
+    margin: 0px 15px ;
+}
+.moon{
+    height: 22px;
+    width: 22px
+}
+.theme-selector{
+    width:40px;
+    height: 20px;
+    border-radius: 16px;
+    background-color: grey;
+}
+.theme-button{
+    width:14px;
+    height:14px;
+    background-color: white;
+    border-radius:  50%;
 }
