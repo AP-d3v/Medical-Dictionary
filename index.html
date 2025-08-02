@@ -18,14 +18,19 @@
         <img src="Assets/Images/logo.svg" alt="logo">
       </div>
       <div class="toggle-array">
-        <div class="switcher">
+        <div class="switcher" id="font-selector">
           <p id="font-selected">Sans</p>
-          <img src="Assets/Images/icon-arrow-down.svg">
+          <img id="dropdown-icon" src="Assets/Images/icon-arrow-down.svg">
+          <div class="switcher-dropdown" id="fonts-box">
+            <p>Sans Serif</p>
+            <p>Serif</p>
+            <p>Mono</p>
+          </div>
         </div>
         <div class="divider"></div>
         <div class="switcher">
-          <div class="theme-selector">
-            <div class="theme-button"></div>
+          <div id="theme-selector">
+            <div id="theme-button"></div>
           </div>
           <img class="moon" src="Assets/Images/icon-moon.svg">
         </div>
@@ -44,6 +49,6 @@
   </footer>
 </div>
 
-  <script src="#"></script>
+  <script src="script.js"></script>
 </body>
 </html>

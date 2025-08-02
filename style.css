@@ -1,7 +1,23 @@
+
+:root{
+    --bkgrd-color: #ffffff;
+    --font-color: #000000;
+    --divider: rgb(224, 236, 247);
+
+}
+
+
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding:0;
+    font-family:serif;
+    background-color: var(--bkgrd-color);
+    color: var(--font-color);
+    transition: background-color 4s ease, color 4s ease;
+    
+    
 
   }
   
@@ -39,34 +55,102 @@ body{
     align-items: center;
     justify-content: space-evenly;
     width: 40%;
-    gap:5px
-    
+    gap: 5px;
 
 }
 
+
 #font-selected{
     padding: 5%;
-    font-size: 18px;
+    font-size: 16px;
 }
 .divider{
     width: 1px;
     height: 30px;
-    background-color: rgb(224, 236, 247);
+    background-color: var(--divider);
     margin: 0px 15px ;
 }
 .moon{
     height: 22px;
     width: 22px
 }
-.theme-selector{
+#theme-selector{
+    display: flex;
+    align-items: center;
     width:40px;
     height: 20px;
     border-radius: 16px;
-    background-color: grey;
+    background-color: grey !important;
 }
-.theme-button{
+#theme-button{
     width:14px;
     height:14px;
-    background-color: white;
-    border-radius:  50%;
+    background-color: white !important;
+    border-radius:50%;
+    margin: 3px;
+   
+}
+#theme-selector:hover{
+    background-color: rgb(121, 61, 176);
+
+
+}
+
+.slide-to-the-right{
+    animation: moveRight .3s ease-in forwards;
+}
+
+.slide-to-the-left{
+    animation: moveLeft .3s ease-in  forwards;
+}
+@keyframes moveRight {
+    from{
+        transform: translateX(0px);
+    }
+    to{
+        transform: translateX(20px);
+    }
+}
+@keyframes moveLeft {
+    from{
+        transform: translateX(20px);
+    }
+    to{
+        transform: translateX(0px);
+    }
+}
+
+.switcher-dropdown{
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 80px;
+    right: 450px;
+    width: 125px;
+    height: 100px;
+    box-shadow: 0 5px 20px 1px rgb(149, 148, 148);
+    border-radius: 20px;
+    z-index: 9999;
+    background-color: var(--bkgrd-color);
+    color: var(--font-color);
+    transition: none !important;
+}
+.switcher-dropdown > p{
+    margin: 10px 0 0 10px;
+    transition: none !important;
+}
+
+.switcher-dropdown > p:hover{
+    color: blueviolet;
+    
+}
+
+#font-selector{
+    padding: 20px;
+}
+
+.dark-mode{
+    --bkgrd-color: #000000;
+    --font-color: #ffffff;
+    --divider: rgb(68, 68, 70);
 }
