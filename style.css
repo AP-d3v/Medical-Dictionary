@@ -3,6 +3,7 @@
     --bkgrd-color: #ffffff;
     --font-color: #000000;
     --divider: rgb(224, 236, 247);
+    --input-bg: #f4f4f4;
 
 }
 
@@ -32,7 +33,9 @@ body{
     
 }
 .wrapper{
-    width: min(761px, 100%)
+    width: min(761px, 100%);
+    margin: 10px;
+    padding: 0 24px;
 }
 
 .nav-bar{
@@ -41,15 +44,17 @@ body{
     justify-content: space-between;
     height: 15vh;
     align-items: center;
+    position: relative;
     
 }
 .toggle-array{
     display: flex;
-    width: 25%;
+    width: 175px;
     justify-content: space-evenly;
     align-items: center;
 
 }
+
 .switcher{
     display: flex;
     align-items: center;
@@ -81,6 +86,7 @@ body{
     height: 20px;
     border-radius: 16px;
     background-color: grey !important;
+    flex-shrink: 0;
 }
 #theme-button{
     width:14px;
@@ -88,6 +94,7 @@ body{
     background-color: white !important;
     border-radius:50%;
     margin: 3px;
+    
    
 }
 #theme-selector:hover{
@@ -125,7 +132,7 @@ body{
     flex-direction: column;
     position: absolute;
     top: 80px;
-    right: 450px;
+    right: 90px;
     width: 125px;
     height: 100px;
     box-shadow: 0 5px 20px 1px rgb(149, 148, 148);
@@ -134,6 +141,7 @@ body{
     background-color: var(--bkgrd-color);
     color: var(--font-color);
     transition: none !important;
+    
 }
 .switcher-dropdown > p{
     margin: 10px 0 0 10px;
@@ -141,7 +149,7 @@ body{
 }
 
 .switcher-dropdown > p:hover{
-    color: blueviolet;
+    color: #8a2be2;
     
 }
 
@@ -153,4 +161,41 @@ body{
     --bkgrd-color: #000000;
     --font-color: #ffffff;
     --divider: rgb(68, 68, 70);
+    --input-bg: #1f1f1f;
+}
+
+#search-bar{
+    width: 100%;
+    border: none;
+    background-color: var(--input-bg);
+    height: 64px;
+    font-size: 20px;
+    padding-left: 20px;
+    border-radius: 20px;
+
+}
+#search-bar:focus{
+    outline: none;
+    border: 3px solid #A445ED;
+
+}
+
+#search-icon{
+    border: none;
+    position: relative;
+    left: calc(100% - 30px);
+    bottom: 40px;
+    background-color: var(--input-bg)
+    
+}
+#search-icon img{
+    background-color: var(--input-bg)
+}
+
+#search-icon{
+    cursor: pointer;
+}
+
+footer{
+    text-align: center;
 }
