@@ -1,12 +1,10 @@
 const fonts = document.querySelectorAll(".switcher-dropdown > p");
-const webpageSettings = document.querySelectorAll("*");
 const selectedFont = document.getElementById("font-selected");
 const fontSelector = document.getElementById("font-selector");
 const fontsBox = document.getElementById("fonts-box");
 const darkModeButton = document.getElementById("theme-button");
 let isDark = false;
 const searchButton = document.getElementById("search-icon"); 
-const loadedContent = document.getElementById("loaded-content");
 const wordDisplay = document.getElementById("word-display");
 const defBody = document.getElementById("definition-body");
 const defHeading = document.getElementById("heading-container")
@@ -15,18 +13,20 @@ const defHeading = document.getElementById("heading-container")
 
 fonts.forEach(font =>{ 
     font.addEventListener("click", function(e){
-        if (e.target.textContent === "Sans Serif"){
-           webpageSettings.forEach(el => {el.style.fontFamily = "sans-serif"})
-          selectedFont.textContent = 'Sans';
+        let font = e.target.textContent
+        if (font === "Sans Serif"){
+            document.documentElement.style.setProperty( '--font-family', 'sans-serif');
+            selectedFont.textContent = 'Sans';
         }
-        if (e.target.textContent === "Serif"){
-            webpageSettings.forEach(el => {el.style.fontFamily = "serif"});
-           selectedFont.textContent = 'Serif';
+        if (font === "Serif"){
+            document.documentElement.style.setProperty( '--font-family', 'serif');
+            selectedFont.textContent = 'Serif';
          }
-         if (e.target.textContent === "Mono"){
-            webpageSettings.forEach(el => {el.style.fontFamily = "monospace"});
+         if (font === "Mono"){
+            document.documentElement.style.setProperty( '--font-family', 'monospace');
             selectedFont.textContent = 'Mono';
          }
+         
     });
 });
 
