@@ -6,6 +6,7 @@ const darkModeButton = document.getElementById("theme-button");
 let isDark = false;
 const searchButton = document.getElementById("search-icon"); 
 const wordDisplay = document.getElementById("word-display");
+const wordAudio = document.getElementById("word-audio")
 const defBody = document.getElementById("definition-body");
 const defHeading = document.getElementById("heading-container")
 
@@ -43,12 +44,12 @@ function leftOrRight(){
     if(!isDark){
         darkModeButton.classList.remove("slide-to-the-left");
         darkModeButton.classList.add("slide-to-the-right");
-        document.body.classList.add("dark-mode"); 
+        document.documentElement.classList.add("dark-mode"); 
         
     } else {
         darkModeButton.classList.remove("slide-to-the-right");
         darkModeButton.classList.add("slide-to-the-left");
-        document.body.classList.remove("dark-mode"); 
+        document.documentElement.classList.remove("dark-mode"); 
         
     }
 
@@ -66,7 +67,8 @@ async function fetchDefintion(term) {
         }
         const data = await response.json();
         console.log(data);
-        populateHeaderDisplay(data)
+        populateHeaderDisplay(data);
+        populateDefinitionBody(data);
     }
     
     catch(error){ 
@@ -81,7 +83,11 @@ searchButton.addEventListener("click", function(e){
     e.preventDefault();
     searchTerm = document.getElementById("search-bar").value;
     fetchDefintion(searchTerm);
-    wordDisplay.innerHTML = ''
+    wordDisplay.innerHTML = '';
+    wordAudio.innerHTML = '';
+    defBody.innerHTML = '';
+
+
 
 
 })
@@ -90,10 +96,12 @@ function  populateHeaderDisplay(data){
     
     //populate title and pronuctiation 
     const wordTitle = document.createElement("h1");   
-    wordTitle.textContent = data[0].hwi.hw.replace(/\*/g,"");
+    wordTitle.textContent = data[0].hwi.hw.replace(/\*/g,"").charAt(0).toUpperCase() + data[0].hwi.hw.replace(/\*/g,"").slice(1);
+    wordTitle.classList.add("title")
     wordDisplay.appendChild(wordTitle);
     const wordPronounceText = document.createElement("p");
-    wordPronounceText.textContent = data[0].hwi.prs[0].mw;
+    wordPronounceText.textContent = data[0].hwi.prs[0].mw;  //bug here with similar words without prs key 
+    wordPronounceText.classList.add("pronounce");
     wordDisplay.appendChild(wordPronounceText);
 
     //button 
@@ -102,7 +110,7 @@ function  populateHeaderDisplay(data){
     .then(svgData => {
         const buttonSVG = document.createElement("div");
         buttonSVG.innerHTML = svgData;
-        wordDisplay.appendChild(buttonSVG);
+        wordAudio.appendChild(buttonSVG);
         const svg = buttonSVG.querySelector("svg");
         const buttonSVGCircle = buttonSVG.querySelector("circle");
         const buttonSVGTriangle = buttonSVG.querySelector("path");
@@ -140,9 +148,55 @@ function  populateHeaderDisplay(data){
 
     });
 
+}
 
+function populateDefinitionBody(data){
+    const mainHeadWordDef = data[0].shortdef;
+    let partOfSpeach = document.createElement("h2");
+    partOfSpeach.textContent = data[0].fl;
+    defBody.appendChild(partOfSpeach);
+    partOfSpeach.classList.add("part-of-speach");
+    const meaningLabel = document.createElement("p");
+    meaningLabel.textContent = "Meaning";
+    meaningLabel.classList.add("meaning-label");
+    defBody.appendChild(meaningLabel);
+    const mainDefList =  document.createElement("ul");
+    defBody.appendChild(mainDefList);
+    
+    for (def of mainHeadWordDef){
+        const definition = document.createElement("li");
+        definition.textContent = def.charAt(0).toUpperCase() + def.slice(1);
+        mainDefList.appendChild(definition);
+    } 
+    
+    let firstIteration = true 
 
+    for (i = 1; i < data.length; i++) {
+        const wordMatch = data[0].hwi.hw.replace(/\*/g,"")
+        if (wordMatch != data[i].hwi.hw){
+            continue
+        }
+        if (firstIteration){
+            let partOfSpeach = document.createElement("h2");
+            partOfSpeach.textContent = data[i].fl;
+            defBody.appendChild(partOfSpeach);
+            partOfSpeach.classList.add("part-of-speach");
+            const meaningLabel = document.createElement("p");
+            meaningLabel.classList.add("meaning-label");
+            meaningLabel.textContent = "Meaning";
+            defBody.appendChild(meaningLabel);
+            firstIteration = false;
 
+        }
 
+        const altDefList = document.createElement("ul");
+        defBody.appendChild(altDefList);
+        const altHeadWordDef = data[i].shortdef;
+        for (def of altHeadWordDef){
+            const definition = document.createElement("li");
+            definition.textContent = def.charAt(0).toUpperCase() + def.slice(1);
+            altDefList.appendChild(definition);
+        }
 
+    }
 }
