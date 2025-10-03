@@ -68,11 +68,17 @@ async function fetchDefintion(term) {
         const data = await response.json();
         console.log(data);
         populateHeaderDisplay(data);
-        populateDefinitionBody(data);
+        try{
+            populateDefinitionBody(data);
+        }
+        catch{
+            console.log("not a full definition, tryinhg alternate function")
+        }
+        
     }
     
     catch(error){ 
-        console.error(`Could not fetch definition${error}`);
+        console.error(`Not a main definition${error}`);
     }
     
 }
@@ -141,9 +147,8 @@ function  populateHeaderDisplay(data){
                 subdir = audioFile[0];
             }
 
-            fetch(`https://media.merriam-webster.com/audio/prons/en/us/mp3/${subdir}/${audioFile}.mp3`)
-            .then(res => res.blob())
-            .then(audio => new Audio(URL.createObjectURL(audio)).play())
+            const audio = new Audio(`https://media.merriam-webster.com/audio/prons/en/us/mp3/${subdir}/${audioFile}.mp3`)
+            audio.play()
         })
 
     });
