@@ -270,4 +270,19 @@ footer{
 ul{
     animation: 1s ease-out 0s slide-in-from-bottom;
 }
+svg{
+    width: 60px;
+}
 
+.possible-word{
+    text-decoration: underline;
+    transition: none;
+}
+.possible-word:hover{
+    color: #A445ED;
+    transition: none;
+    
+}
+.custom-def{
+    color: #A445ED
+}

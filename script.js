@@ -67,12 +67,18 @@ async function fetchDefintion(term) {
         }
         const data = await response.json();
         console.log(data);
-        populateHeaderDisplay(data);
         try{
+            populateHeaderDisplay(data);
             populateDefinitionBody(data);
         }
         catch{
-            console.log("not a full definition, tryinhg alternate function")
+
+            console.log("not a full definition, tryinhg alternate function");
+            if(Object.hasOwn(data[0], 'hwi')){
+                populateDefinitionBody(data);
+            } else{
+                dontHaveTerm(data);
+            }
         }
         
     }
@@ -205,3 +211,39 @@ function populateDefinitionBody(data){
 
     }
 }
+
+function dontHaveTerm(data){
+    const didYouMean = document.createElement("span");
+    wordDisplay.appendChild(didYouMean);
+    didYouMean.textContent = "Did you Mean? ";
+    for(i = 0; i < data.length; i++){
+        const possibleWrd = document.createElement("span");
+        wordDisplay.appendChild(possibleWrd);
+        possibleWrd.classList.add("possible-word");
+        possibleWrd.textContent = `${data[i]}`;
+        possibleWrd.addEventListener("click", function(e){
+            e.preventDefault();
+            searchTerm = possibleWrd.textContent;
+            fetchDefintion(searchTerm);
+            wordDisplay.innerHTML = '';
+            wordAudio.innerHTML = '';
+            defBody.innerHTML = '';
+        })
+        const spacing = document.createElement("span");
+        wordDisplay.appendChild(spacing);
+        spacing.textContent = ` `
+    }
+}
+
+window.addEventListener("DOMContentLoaded", (event) => {
+  fetchDefintion("nurse").then(() => {
+  const firstList = document.querySelector('ul');
+  if (firstList) {
+    const customDef = document.createElement("li");
+    customDef.classList.add("custom-def")
+    customDef.textContent = "\"My sister is an ED nurse who rapidly stabilizes trauma patients and coordinates care with physicians and other healthcare professionals\"";
+    firstList.appendChild(customDef);
+  }
+})
+
+});
